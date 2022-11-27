@@ -4,23 +4,25 @@
 	Task 1: `counterMaker`
 \******************************************************************************/
 /****** INSTRUCTIONS TASK 1 ******/
-/* 
+/*
  * Study the code below for counter1 and counter2. Answer the questions below.
- * 
- * 1. What is the difference between counter1 and counter2?
- * 
- * 2. Which of the two uses a closure? How can you tell?
- * 
- * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better? 
  *
-*/
+ * 1. What is the difference between counter1 and counter2?
+ *  Ans: counter1 code has a count variable in the function so the this variable is not global scope
+ * while counter2 code has the count variable outside the function so, it is global variable
+ * 2. Which of the two uses a closure? How can you tell?
+ * counter1 code uses closure because it has two nested functions
+ * 3. In what scenario would the counter1 code be preferable? In what scenario would counter2 be better?
+ * counter1 code is preferable when we want to enclos variables in the function scope.
+ * counter2 code is preferable when we want count variable every where in our code, not to linit just in the function scope
+ */
 
 // counter1 code
 function counterMaker() {
   let count = 0;
   return function counter() {
     count++;
-  }
+  };
 }
 
 const counter1 = counterMaker();
@@ -32,7 +34,6 @@ function counter2() {
   return count++;
 }
 
-
 /******************************************************************************\
 	Task 2: Get Motivated
 \******************************************************************************/
@@ -42,19 +43,18 @@ function counter2() {
 will return 'You're doing awesome, keep it up firstname lastname.' */
 
 function motivation(firstname, lastname) {
-
-  var welcomeText = 'You\'re doing awesome, keep it up ';
+  var welcomeText = "You're doing awesome, keep it up ";
 
   // code message function here.
-
+  function message() {
+    return `You\'re doing awesome, keep it up ${firstname} ${lastname}`;
+  }
 
   //Uncommment this to return the value of your invoked message function
-  //return message();
-
+  return message();
 }
 
-motivation('Mohamed', 'Ali'); // 'You're doing awesome keep it up Mohamed Ali.
-
+console.log(motivation("Mohamed", "Ali")); // 'You're doing awesome keep it up Mohamed Ali.
 
 /******************************************************************************\
  Task 3: Find Your Friends
@@ -68,16 +68,28 @@ a function that will tell us if a given user is not already a friend. */
 
 var friends = ["Ahmed", "Khadijo", "Farah"];
 var secondLevelFriends = ["Mahad", "Farah", "Mohamed"];
-var allUsers = ["Ahmed", "Khadijo", "Farah", "Mahad", "Mohamed", "Bashir", "Ali"];
+var allUsers = [
+  "Ahmed",
+  "Khadijo",
+  "Farah",
+  "Mahad",
+  "Mohamed",
+  "Bashir",
+  "Ali",
+];
 
 function findPotentialFriends(existingFriends) {
-
+  if (friends.includes(existingFriends)) {
+    return "already a freind";
+  } else {
+    return "you are not already freind";
+  }
 }
-
-var isNotAFriend = findPotentialFriends( friends );
+console.log(findPotentialFriends(allUsers[4]));
+// var isNotAFriend = findPotentialFriends(friends);
+// console.log(isNotAFriend(allUsers[0]));
 // isNotAFriend(allUsers[0]); // false
 // isNotAFriend(secondLevelFriends[2]); // true
-
 
 /******************************************************************************\
 	Task 4: Keep a log
@@ -99,14 +111,14 @@ to 5. What we need to do is console.log(i) so that it logs like so:
  */
 
 function timeOutCounter() {
-  for (var i = 0; i <= 5; i++) {
-    setTimeout(function() {
-    	console.log(i)
-	}, i * 1000)
+  for (let i = 0; i <= 5; i++) {
+    setTimeout(function () {
+      console.log(` log ${i--}`);
+    }, i * 1000);
   }
 }
-timeOutCounter();
 
+timeOutCounter();
 
 /******************************************************************************\
 	Task 5: Check if name exists
@@ -120,22 +132,35 @@ timeOutCounter();
   If the name does not exist, invoke the callback with false as the argument.
 */
 
-
+function contains(callback, names, name) {
+  if (names.includes(name)) {
+    callback(true);
+  } else {
+    callback(false);
+  }
+}
+function myCallback(checker) {
+  // Do something else
+  console.log(`it is ${checker}`);
+}
+contains(myCallback, ["cali", "caasho", "cabdi"], "cali");
 
 /* STRETCH PROBLEMS, Do not attempt until you have completed all previous tasks for today's project files */
 
-
 // ==== Challenge 2: Create a counter function ====
 const counter = () => {
-    // Return a function that when invoked increments and returns a counter variable.
-  };
-  // Example usage: const newCounter = counter();
-  // newCounter(); // 1
-  // newCounter(); // 2
-  
-  // ==== Challenge 3: Create a counter function with an object that can increment and decrement ====
-  const counterFactory = () => {
-    // Return an object that has two methods called `increment` and `decrement`.
-    // `increment` should increment a counter variable in closure scope and return it.
-    // `decrement` should decrement the counter variable and return it.
-  };
+  // Return a function that when invoked increments and returns a counter variable.
+};
+// Example usage: const newCounter = counter();
+// newCounter(); // 1
+// newCounter(); // 2
+const  incrementer =(number)=>{
+ return number+1
+}
+console.log(incrementer(4))
+// ==== Challenge 3: Create a counter function with an object that can increment and decrement ====
+const counterFactory = () => {
+  // Return an object that has two methods called `increment` and `decrement`.
+  // `increment` should increment a counter variable in closure scope and return it.
+  // `decrement` should decrement the counter variable and return it.
+};
